@@ -1,10 +1,10 @@
-all: pipe_spec_plplot docs
+all: dada2spec docs tidyup
 
 .PHONY: docs
 
-pipe_spec_plplot: pipe_spec_plplot.c
+dada2spec: dada2spec.c
 	@echo "Compiling piped plotting tools"
-	gcc -Wall pipe_spec_plplot.c -o pipe_spec_plplot -lplplot -lX11 -lfftw3 -lm -lrt -lpthread
+	gcc -Wall dada2spec.c -o dada2spec -lplplot -lX11 -lfftw3 -lm -lrt -lpthread
 
 docs:
 	@echo "Creating documentation"
@@ -16,9 +16,13 @@ docs:
 	@rm -rf ./latex
 	@echo "Done documentation !"
 
-clean : 
-	rm -f pipe_spec_plplot
+tidyup:
 	rm -f Doxyfile*
-	rm -rf 
+	rm -rf html
+	rm -rf latex
+
+clean: 
+	rm -f dada2spec
+	rm -f Doxyfile*
 	rm -rf html
 	rm -rf latex
