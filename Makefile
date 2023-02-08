@@ -4,7 +4,7 @@ all: dada2spec docs tidyup
 
 dada2spec: dada2spec.c
 	@echo "Compiling psrdada tools"
-	gcc -Wall dada2spec.c -o dada2spec -lplplot -lX11 -lfftw3 -lm -lrt -lpthread
+	gcc -Wall dada2spec.c -o dada2spec -lfftw3 -lm -lrt -lpthread
 
 docs:
 	@echo "Creating documentation"
