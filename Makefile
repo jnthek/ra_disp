@@ -17,4 +17,8 @@ docs:
 	@echo "Done documentation !"
 
 clean : 
-	rm pipe_spec_plplot
+	rm -f pipe_spec_plplot
+	rm -f Doxyfile*
+	rm -rf 
+	rm -rf html
+	rm -rf latex
