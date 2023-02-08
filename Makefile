@@ -1,9 +1,9 @@
-all: dada2spec docs tidyup
+all: dada2spec tidyup
 
 .PHONY: docs
 
 dada2spec: dada2spec.c
-	@echo "Compiling piped plotting tools"
+	@echo "Compiling psrdada tools"
 	gcc -Wall dada2spec.c -o dada2spec -lplplot -lX11 -lfftw3 -lm -lrt -lpthread
 
 docs:

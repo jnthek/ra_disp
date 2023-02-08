@@ -11,21 +11,43 @@
 
 #include <stdio.h>
 #include <stddef.h>
-#include <assert.h>
-// #include <sys/mman.h>
-// #include <sys/stat.h>        
-// #include <fcntl.h>           
 #include <unistd.h>
 #include <stdlib.h>
-// #include <time.h>
 #include <string.h>
 #include <stdbool.h>
 #include <signal.h>
 static volatile int run_acq = 1;
 
-void intHandler_acq(int dummy) 
+void interrupt_handler(int dummy) 
 {
     run_acq = 0;
+}
+
+int findinheader(const char *hdr_buf, const char *hdr_name, double *val)
+{
+    int i, hdrlen;
+    char valbuff[100], *hdrptr, *valptr = NULL;
+    hdrlen = strlen(hdr_name);
+    hdrptr = strstr(hdr_buf,hdr_name);
+    if (hdrptr != NULL) 
+    {
+        valptr = hdrptr+hdrlen+1;
+        for (i=0; i<4096; i++)
+        {
+            if (*(valptr+i) == '\n') 
+            break;
+        }
+        strncpy(valbuff, valptr, i-1);
+        valbuff[i+1] = '\0';
+        *val = atof(valbuff);
+    }
+    else
+    {
+        printf ("Not found\n");
+        return 0;
+    }
+    
+    return 1;
 }
 
 void print_acq_usage(char * const argv[]) 
@@ -41,10 +63,10 @@ void print_acq_usage(char * const argv[])
 
 int main (int argc, char *argv[])
 {
-
     int res, opt, NFFT=512, tsec=1;
     bool verb_flag=false;
     char *dada_filename = NULL;
+    char headbuf[4096];
     FILE *fd = NULL;
 
     if (argc<2) print_acq_usage(argv);
@@ -76,21 +98,27 @@ int main (int argc, char *argv[])
             exit(0);
         }
     }
-    fd = fopen(dada_filename, "r");
+
+    signal(SIGINT, interrupt_handler);
+
+    fd = fopen(dada_filename, "rb");
     if(fd == NULL)
     {
         printf("Looks like file does not exist. Quitting\n");   
         exit(1);             
     }
+    printf ("\n************** dada2spec **************\n\n");
     printf ("Input file is %s\n", dada_filename);
     printf ("Performing %d point FFT with %d second(s) of integration.\n", NFFT, tsec);
-    signal(SIGINT, intHandler_acq);
-    while (run_acq)
-    {
-        
-    }
+
+    fread(headbuf, sizeof(headbuf), 1, fd);
+
+    double freq;
+    res = findinheader(headbuf, "FREQ", &freq);
+    if(res) printf ("Frequency is %f MHz\n", freq);
+
     if (verb_flag) printf("\nClosing the file\n");
     fclose(fd);
-    printf("Exiting \n");
+    printf("\nExiting !\n");
     return 0;
 }
