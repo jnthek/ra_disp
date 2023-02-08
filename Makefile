@@ -1,4 +1,4 @@
-all: dada2spec tidyup
+all: dada2spec docs tidyup
 
 .PHONY: docs
 
