@@ -1,3 +1,13 @@
+/**
+ * @file pipe_spec_plplot.c
+ * @author Jishnu N. Thekkeppattu (j.thekkeppattu@curtin.edu.au)
+ * @version 0.1
+ * @date 2023-02-03
+ * @brief This is a sample consumer code to get data from a shared memory,  perform FFT using FFTW3 and plot using pgplot. 
+ * 
+ */
+
+
 #include <stdio.h>
 #include <math.h>
 #include <unistd.h>
