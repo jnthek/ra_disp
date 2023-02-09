@@ -23,6 +23,16 @@ void interrupt_handler(int dummy)
     run_acq = 0;
 }
 
+/**
+ * @brief Function to find a header variable value from a psrdada header.
+ *
+ * This function accepts a psrdada header, a variable name and finds its value.
+ *
+ * @param *hdr_buf pointer to a char array with the header text.
+ * @param *hdr_name pointer to a char array with the required variable name to be found in @a hdr_buf.
+ * @param *val pointer to a variable where the retrieved value will be stored.
+ * @retval 1 on successful completion, 0 if the value could not be found.
+ */
 int findinheader(const char *hdr_buf, const char *hdr_name, double *val)
 {
     int i, hdrlen;

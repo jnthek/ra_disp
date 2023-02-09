@@ -9,7 +9,7 @@ dada2spec: dada2spec.c
 docs:
 	@echo "Creating documentation"
 	@doxygen -g
-	@sed -i~ 's/PROJECT_NAME           = "My Project"/PROJECT_NAME           = "RA disp"/' Doxyfile
+	@sed -i~ 's/PROJECT_NAME           = "My Project"/PROJECT_NAME           = "psrdada tools"/' Doxyfile
 	@sed -i~ 's/GENERATE_HTML          = YES/GENERATE_HTML          = NO/' Doxyfile
 	@doxygen ./Doxyfile
 	@cd ./latex/ ; pdflatex refman.tex ; pdflatex refman.tex ; mv refman.pdf ../Readme.pdf

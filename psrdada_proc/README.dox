@@ -1,0 +1,11 @@
+/**
+@mainpage An overview of psrdada processing tools
+
+@author Jishnu N. Thekkeppattu (j.thekkeppattu@curtin.edu.au)
+
+These codes are useful to process psrdada voltage dumps obtained with AAVS2 or EDA2 systems.
+
+@see https://opensource.com/article/19/4/interprocess-communication-linux-storage 
+
+*/
+
