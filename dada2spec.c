@@ -4,7 +4,7 @@
  * @brief 
  * @version 0.1
  * @date 2023-02-08
- * @brief Reads a psrdada file and generates spectra out of them. The number of FFT bins and required time averaging can be specified.
+ * @brief Reads an AAVS-2 or EDA-2 psrdada file and generates spectra out of them. The number of FFT bins and required time averaging can be specified.
  * 
  * 
  */
