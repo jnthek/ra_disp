@@ -74,6 +74,7 @@ void print_acq_usage(char * const argv[])
 int main (int argc, char *argv[])
 {
     int res, opt, NFFT=512, tsec=1;
+    double freq, fsamp;
     bool verb_flag=false;
     char *dada_filename = NULL;
     char headbuf[4096];
@@ -123,11 +124,12 @@ int main (int argc, char *argv[])
 
     fread(headbuf, sizeof(headbuf), 1, fd);
 
-    double freq;
     res = findinheader(headbuf, "FREQ", &freq);
     if(res) printf ("Frequency is %f MHz\n", freq);
-
+    res = findinheader(headbuf, "SAMPLE_RATE", &fsamp);
+    if (res) printf ("Sample rate is %f MHz\n", fsamp);
     if (verb_flag) printf("\nClosing the file\n");
+
     fclose(fd);
     printf("\nExiting !\n");
     return 0;
